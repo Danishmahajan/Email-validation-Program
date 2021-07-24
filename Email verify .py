@@ -6,7 +6,9 @@ class MissingDomainError(Error):
     pass
 class AddressError(Error):
     pass
-class AddressErrorOf(Error):
+class NameBeforeDomain(Error):
+    pass
+class NameBeforeAtTheRate(Error):
     pass
 print("\n          The Email Validation Program \n")
 while True:
@@ -17,11 +19,11 @@ while True:
         list_domain=["com","org","co.in","ac.in","net"]
         userdomain = email.split(".",1)[-1] # Split for Domain
         split_name=email.split("@")   #Split for the Address
-        split_name2= split_name[1].split(".")  # split  for .
         count=0
         for i in email:
             if i == "@":
                 count=count+1
+                split_name2= split_name[1].split(".")  # split  for .
         #Checking The @ And The Domain
         if "@" not in email:
             raise MissingSymbolError
@@ -35,11 +37,10 @@ while True:
         
         #checking The Mail before @
         elif not split_name[0].isalnum():
-            raise AddressError
-        #checking The Mail before.
-        # split_name2= email.split(".") 
+            raise NameBeforeAtTheRate
+        #checking The Mail before. 
         elif not split_name2[0].isalnum():
-            raise AddressErrorOf 
+            raise NameBeforeDomain 
         else:
             print("\n  Your mail is valid  i.e ", email,"\n")
             break
@@ -51,5 +52,7 @@ while True:
         print("\n Enter Your Mail Again Containing Domain ......  ")
     except AddressError:
         print("\n Enter Your Mail with valid Address  ......  ")
-    except AddressErrorOf:
-        print("\n Enter Your Mail with valid Address Dot Error  ......  ")
+    except NameBeforeAtTheRate:
+        print("\n Enter Your Mail with valid Address Before @  ......  ")
+    except NameBeforeDomain:
+        print("\n Enter Your Mail with valid Address Before Dot  ......  ")
